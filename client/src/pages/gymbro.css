@@ -48,12 +48,11 @@ html {
     color: #ffffff;
 }
 
-/* Centered Card */
+
 .card {
     width: 600px;
     height: 400px;
     background-image: url('/public/logo512.png');
-    /* Set your card background image here */
     background-size: cover;
     background-position: center;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);

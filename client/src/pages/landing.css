@@ -1,0 +1,85 @@
+body,
+html {
+    max-width: 100vw;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.landingBody {
+    background-image: url('/public/background.png');
+    background-color: #151515;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.ellipseImage {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: auto;
+    z-index: 1;
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+.runningWomanImage {
+    position: absolute;
+    bottom: 10%;
+    right: 10%;
+    height: 70vh;
+    width: auto;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.landingNav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 200px;
+    background-image: url('/public/navbg.png');
+    background-size: cover;
+    background-position: center;
+    width: 100vw;
+    box-sizing: border-box;
+    z-index: 3;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+}
+
+.App-logo {
+    height: 40px;
+    pointer-events: none;
+}
+
+.App-link {
+    margin-left: 15px;
+    text-decoration: none;
+    color: #61dafb;
+    font-size: 18px;
+}
+
+.App-link:hover {
+    color: #ffffff;
+}
+
+
+.largeText {
+    position: absolute;
+    left: 150px;
+    top: 40%;
+    font-size: 150px;
+    font-weight: bold;
+    color: #7B7B7B;
+    z-index: 2;
+    opacity: 0.9;
+}
