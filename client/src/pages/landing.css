@@ -40,6 +40,16 @@ html {
     width: auto;
     z-index: 2;
     pointer-events: none;
+    animation: moveLeftRight 3s ease-in-out infinite;
+}
+
+@keyframes moveLeftRight {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(20px);
+    }
 }
 
 .landingNav {
@@ -77,8 +87,8 @@ html {
 .largeText {
     position: absolute;
     left: 150px;
-    top: 40%;
-    font-size: 150px;
+    top: 30%;
+    font-size: 184px;
     font-weight: bold;
     color: #7B7B7B;
     z-index: 2;
