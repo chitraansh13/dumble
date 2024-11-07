@@ -6,10 +6,20 @@ html {
     padding: 0;
     min-height: 100vh;
     overflow-x: hidden;
+
 }
 
 .gymbroContainer {
+    background-image: url('/public/background.png');
+    background-color: #151515;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
 }
 
 /* Navbar */
@@ -27,43 +37,44 @@ html {
 
 /* Fixed Sidebar */
 .sidebar {
-    width: 250px;
+    width: 350px;
     background-color: #222;
     color: #fff;
     padding: 20px;
     box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.3);
     position: fixed;
-    height: calc(100vh - 70px);
+    height: calc(100vh - 8vh);
     /* Adjust for navbar height */
-    top: 70px;
+    top: 8vh;
     /* Align with navbar height */
     left: 0;
     z-index: 3;
+    text-align: center;
 }
 
 .sidebar h3 {
-    font-size: 20px;
+    font-size: 25px;
     margin: 0;
     margin-bottom: 20px;
-    color: #ffda79;
+    color: #CACACA;
 }
 
 .sidebar ul {
     list-style: none;
-    padding: 0;
+    padding: 10px;
 }
 
 .sidebar ul li {
     display: flex;
     align-items: center;
-    font-size: 16px;
-    margin: 12px 0;
+    font-size: 18px;
+    margin: 24px 0;
     color: #e1e1e1;
 }
 
 .profileImage {
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     margin-right: 10px;
 }
@@ -77,7 +88,7 @@ html {
     min-height: 100vh;
     padding-left: 270px;
     /* Offset for sidebar width */
-    padding-top: 90px;
+    padding-top: 45px;
     /* Adjust for navbar height */
 }
 
@@ -90,8 +101,8 @@ html {
 }
 
 .card {
-    width: 650px;
-    height: 450px;
+    width: 1000px;
+    height: 600px;
     background-color: #fff;
     background-size: cover;
     background-position: center;
@@ -106,7 +117,7 @@ html {
 }
 
 .cardImage {
-    width: 40%;
+    width: 55%;
     height: 100%;
     background-color: #ccc;
     background-position: center;
@@ -122,17 +133,16 @@ html {
     flex-direction: column;
     justify-content: center;
     text-align: center;
+    color: #CACACA;
 }
 
 .cardInfo h2 {
     margin: 0;
     font-size: 24px;
-    color: #333;
 }
 
 .cardInfo p {
     font-size: 16px;
-    color: #555;
     margin-top: 10px;
 }
 

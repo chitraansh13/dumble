@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import './gymbro.css';
+import Navbar from '../components/navbar';
 
 function Gymbro() {
     const [friends, setFriends] = useState([]);
     const [recommendations, setRecommendations] = useState([
-        { id: 1, name: "Alex", bio: "Gym lover and fitness freak", img: "/public/alex.jpg" },
-        { id: 2, name: "Jordan", bio: "Powerlifting enthusiast", img: "/public/jordan.jpg" },
-        { id: 3, name: "Taylor", bio: "Yoga and wellness advocate", img: "/public/taylor.jpg" },
+        { id: 1, name: "Davis Laid", bio: "Gymming for 5 days", img: "davisLaid.png" },
+        { id: 2, name: "Chitraansh Sulek", bio: "Whats a gym", img: "chitriEubank.jpeg" },
+        { id: 3, name: "Ayushi Keiani", bio: "Havent been to the gym since 2 years", img: "ayushiKeiani.jpg" },
     ]);
     const x = useMotionValue(0);
-    const background = useTransform(x, [-100, 0, 100], ["#ff008c", "#7700ff", "rgb(230, 255, 0)"]);
+    const background = useTransform(x, [-100, 0, 100], ["#ff0000", "#383938", "rgb(230, 255, 0)"]);
 
     const handleSwipe = (user, direction) => {
         if (direction === "right") {
@@ -22,6 +23,7 @@ function Gymbro() {
 
     return (
         <div className="gymbroContainer">
+            <Navbar />
             <div className="sidebar">
                 <h3>Gymbros</h3>
                 <ul>
