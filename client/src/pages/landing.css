@@ -5,6 +5,7 @@ html {
     padding: 0;
     min-height: 100vh;
     overflow-x: hidden;
+    font-family: "Poppins", serif;
 }
 
 .landingBody {
@@ -39,37 +40,46 @@ html {
     width: auto;
     z-index: 2;
     pointer-events: none;
+    animation: moveLeftRight 3s ease-in-out infinite;
+}
+
+@keyframes moveLeftRight {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(20px);
+    }
 }
 
 .landingNav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 200px;
-    background-image: url('/public/navbg.png');
+    padding: 1% 5%;
     background-size: cover;
     background-position: center;
     width: 100vw;
-    height: 75px;
+    height: 8vh;
     box-sizing: border-box;
     z-index: 3;
-    border-radius: 10px;
     backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgb(66, 66, 66, 0.5) ;
 }
 
-.App-logo {
+.appLogo {
     height: 40px;
     pointer-events: none;
 }
 
-.App-link {
+.appLink {
     margin-left: 15px;
     text-decoration: none;
     color: #61dafb;
     font-size: 18px;
 }
 
-.App-link:hover {
+.appLink:hover {
     color: #ffffff;
 }
 
@@ -77,8 +87,8 @@ html {
 .largeText {
     position: absolute;
     left: 150px;
-    top: 40%;
-    font-size: 150px;
+    top: 30%;
+    font-size: 184px;
     font-weight: bold;
     color: #7B7B7B;
     z-index: 2;
