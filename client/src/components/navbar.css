@@ -1,0 +1,15 @@
+.nav {
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    align-items: center;
+    padding: 1% 5%;
+    background-size: cover;
+    background-position: center;
+    width: 100vw;
+    height: 8vh;
+    box-sizing: border-box;
+    z-index: 3;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgb(66, 66, 66, 0.5);
+}

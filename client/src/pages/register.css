@@ -86,7 +86,7 @@ input[type=password] {
 }
 
 
-.loginButton{
+.registerButton{
     background: radial-gradient(104.44% 104.44% at 50% 50%, #151515 0%, #170E0E 100%);
     border-radius: 20px;
     font-size: clamp(20px, 2vw, 28px);

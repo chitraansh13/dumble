@@ -1,27 +1,57 @@
+// server.js
 const express = require('express');
-const path = require('path');
+const mongoose = require('mongoose');
 const cors = require('cors');
-
 const app = express();
-const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
-// Serve static files from React app
-app.use(express.static(path.join(__dirname, 'client/build')));
+// MongoDB connection
+mongoose.connect('mongodb://localhost:27017/users', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+.then(() => console.log('Connected to MongoDB'))
+.catch(err => console.error('MongoDB connection error:', err));
 
-// API route example
-app.get('/api/hello', (req, res) => {
-    res.json({ message: "Hello from server!" });
+// User Schema
+const userSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true }
 });
 
-// Catch-all for React routing
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+const User = mongoose.model('User', userSchema);
+
+// Register endpoint
+app.post('/api/register', async (req, res) => {
+    try {
+        const { name, email, password } = req.body;
+
+        // Check if user already exists
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ message: 'Email already registered' });
+        }
+
+        // Create new user
+        const user = new User({
+            name,
+            email,
+            password // Note: In a production environment, you should hash the password!
+        });
+
+        await user.save();
+        res.status(201).json({ message: 'Registration successful' });
+    } catch (error) {
+        console.error('Registration error:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
 });
 
+const PORT = 3001;
 app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });
