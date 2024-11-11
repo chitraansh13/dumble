@@ -13,14 +13,14 @@ function Gymbro() {
         { id: 3, name: "Ayushi Keiani", bio: "Havent been to the gym since 2 years", age: "5 years", goal: "Cutting", location: "darjeeling", img: "ayushiKeiani.jpg" },
     ]);
     const x = useMotionValue(0);
-    const background = useTransform(x, [-100, 0, 100], ["#ff0000", "#383938", "rgb(230, 255, 0)"]);
+    const background = useTransform(x, [-100, 0, 100], ["#ff0000", "#383938", "#00ab00"]);
 
     const handleSwipe = (user, direction) => {
         if (direction === "right") {
             setFriends([...friends, user]);
         }
         setRecommendations(recommendations.filter((u) => u.id !== user.id));
-        x.set(0); // Reset position after swipe
+        x.set(0);
     };
 
     return (
