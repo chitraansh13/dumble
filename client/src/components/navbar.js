@@ -14,10 +14,15 @@ function Navbar() {
                     height={50}
                 />
             </Link>
+            <img
+                src="/logo512.png"
+                alt="profile"
+                className="pfp"
+                width={40}
+                height={40}
+            />
             <div>
-                <Link to="/login" className="appLink">Login</Link>
-                <Link to="/register" className="appLink">Register</Link>
-                <Link to="/gymbro" className="appLink">Gymbro</Link>
+                <Link to="/profile" className="appLink">Profile</Link>
             </div>
         </nav>
     );

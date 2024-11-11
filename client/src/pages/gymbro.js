@@ -6,9 +6,11 @@ import Navbar from '../components/navbar';
 function Gymbro() {
     const [friends, setFriends] = useState([]);
     const [recommendations, setRecommendations] = useState([
-        { id: 1, name: "Davis Laid", bio: "Gymming for 5 days", img: "davisLaid.png" },
-        { id: 2, name: "Chitraansh Sulek", bio: "Whats a gym", img: "chitriEubank.jpeg" },
-        { id: 3, name: "Ayushi Keiani", bio: "Havent been to the gym since 2 years", img: "ayushiKeiani.jpg" },
+        {
+            id: 1, name: "Davis Laid", bio: "Gymming for 5 days", age: "5 years", location: "bangalore", goal: "Bulking", img: "davislaid.jpg"
+        },
+        { id: 2, name: "Chitraansh Sulek", bio: "Took the bulk too far", age: "5 years", location: "bangalore", goal: "Cutting", img: "chitriEubank.jpeg" },
+        { id: 3, name: "Ayushi Keiani", bio: "Havent been to the gym since 2 years", age: "5 years", goal: "Cutting", location: "darjeeling", img: "ayushiKeiani.jpg" },
     ]);
     const x = useMotionValue(0);
     const background = useTransform(x, [-100, 0, 100], ["#ff0000", "#383938", "rgb(230, 255, 0)"]);
