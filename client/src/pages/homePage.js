@@ -1,6 +1,5 @@
-// client/src/pages/homePage.js
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import './homePage.css';
 
 function HomePage() {
@@ -10,6 +9,7 @@ function HomePage() {
         bio: '',
         goal: ''
     });
+    const [error, setError] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -32,6 +32,7 @@ function HomePage() {
     };
 
     const handleProfileUpdate = async () => {
+        setError('');
         try {
             const response = await fetch(`http://localhost:3001/api/users/${user.uuid}/profile`, {
                 method: 'PUT',
@@ -44,52 +45,87 @@ function HomePage() {
             const data = await response.json();
 
             if (response.ok) {
-                // Update local storage with new user data
                 const updatedUser = { ...user, ...data.user };
                 localStorage.setItem('user', JSON.stringify(updatedUser));
                 setUser(updatedUser);
                 setEditing(false);
-                alert('Profile updated successfully!');
             } else {
-                alert(data.message || 'Update failed');
+                setError(data.message || 'Update failed');
             }
         } catch (error) {
             console.error('Error:', error);
-            alert('Failed to update profile. Please try again.');
+            setError('Failed to update profile. Please try again.');
         }
     };
 
     if (!user) return null;
 
     return (
-        <div className="home-container">
+        <div >
             <nav className="home-nav">
                 <h2>Welcome, {user.name}!</h2>
-                <button onClick={handleLogout} className="logout-btn">Logout</button>
+                <button onClick={handleLogout} className="logoutButton">Logout</button>
             </nav>
+            {error && <div className="error-message">{error}</div>}
+            
+            <div className="navigation-grid">
+                <Link to="/diet" className="nav-card">
+                    <div className="nav-content">
+                        <h3>Diet Page</h3>
+                        <p>Track your nutrition and meal plans</p>
+                    </div>
+                </Link>
+                <Link to="/gymbro" className="nav-card">
+                    <div className="nav-content">
+                        <h3>Gym Bro</h3>
+                        <p>Meet people on Dumble</p>
+                    </div>
+                </Link>
+                <Link to="/track-workout" className="nav-card">
+                    <div className="nav-content">
+                        <h3>Track Workout</h3>
+                        <p>Log and monitor your exercises</p>
+                    </div>
+                </Link>
+                <Link to="/workout-routine" className="nav-card">
+                    <div className="nav-content">
+                        <h3>Workout Routine</h3>
+                        <p>View and plan your workouts</p>
+                    </div>
+                </Link>
+                <Link to="/challenges" className="nav-card">
+                    <div className="nav-content">
+                        <h3>Challenges</h3>
+                        <p>Take on fitness challenges with your gym bros</p>
+                    </div>
+                </Link>
+            </div>
+
             <div className="home-content">
                 <h1>Your Profile</h1>
                 {editing ? (
                     <div className="profile-edit">
-                        <div className="form-group">
+                        <div className="text-input-home">
                             <label>Bio:</label>
                             <textarea
                                 value={profile.bio || ''}
                                 onChange={(e) => setProfile({ ...profile, bio: e.target.value })}
                                 placeholder="Tell us about yourself..."
+                                className="custom-textarea"
                             />
                         </div>
-                        <div className="form-group">
+                        <div className="text-input-home">
                             <label>Goal:</label>
                             <textarea
                                 value={profile.goal || ''}
                                 onChange={(e) => setProfile({ ...profile, goal: e.target.value })}
                                 placeholder="What's your fitness goal?"
+                                className="custom-textarea"
                             />
                         </div>
                         <div className="button-group">
-                            <button onClick={handleProfileUpdate} className="save-btn">Save</button>
-                            <button onClick={() => setEditing(false)} className="cancel-btn">Cancel</button>
+                            <button onClick={handleProfileUpdate} className="saveButton">Save</button>
+                            <button onClick={() => setEditing(false)} className="cancelButton">Cancel</button>
                         </div>
                     </div>
                 ) : (
@@ -102,7 +138,7 @@ function HomePage() {
                             <h3>Goal</h3>
                             <p>{user.goal || 'No goal set'}</p>
                         </div>
-                        <button onClick={() => setEditing(true)} className="edit-btn">Edit Profile</button>
+                        <button onClick={() => setEditing(true)} className="editButton">Edit Profile</button>
                     </div>
                 )}
             </div>

@@ -53,16 +53,20 @@ h1{
 .text-input{
     padding: 5% 0;
 }
-input{
-    background-color:rgba(0, 0, 0, 0);
-    /* border-bottom: 1px solid #484240; */
-    border: none;
 
-    outline:none;
+input{
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    border-bottom: 1px solid #CACACA;
+    outline: none;
     width: 100%;
     height: 40px;
-    transition:height 1s;
-    -webkit-transition:height 1s;
+    transition: height 1s;
+    -webkit-transition: height 1s;
+    color: #CACACA;
+    font-size: clamp(16px, 2vw, 24px);
+    margin: 0;
+    font-family: "Poppins", sans-serif;
 }
 
 ::placeholder {
@@ -72,19 +76,8 @@ input{
     margin: 0;
 }
 
-input[type=text] {
-    color: #CACACA; 
-    font-size: clamp(16px, 2vw, 24px);
-    margin: 0;
-    border-bottom: 1px solid #CACACA;
-}
-input[type=password] {
-    color: #CACACA; 
-    font-size: clamp(16px, 2vw, 24px);
-    margin: 0;
-    border-bottom: 1px solid #CACACA;
-}
-
+/* Remove specific input type selectors since we now have consistent styling */
+/* input[type=text], input[type=password] styles are now handled by the general input selector above */
 
 .registerButton{
     background: radial-gradient(104.44% 104.44% at 50% 50%, #151515 0%, #170E0E 100%);
