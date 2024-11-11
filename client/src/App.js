@@ -4,6 +4,7 @@ import Landing from './pages/landing';
 import Register from './pages/register';
 import Login from './pages/login';
 import Gymbro from './pages/gymbro';
+import HomePage from './pages/homePage';
 
 function App() {
     return (
@@ -13,6 +14,7 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/gymbro" element={<Gymbro />} />
+                <Route path="/home" element={<HomePage />} />
             </Routes>
         </Router>
     );

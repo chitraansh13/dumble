@@ -1,4 +1,3 @@
-// client/src/pages/register.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './register.css';
@@ -9,6 +8,7 @@ function Register() {
         email: '',
         password: ''
     });
+    const [error, setError] = useState('');
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -16,10 +16,12 @@ function Register() {
             ...formData,
             [e.target.name]: e.target.value
         });
+        setError(''); // Clear error when user types
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError('');
         
         try {
             const response = await fetch('http://localhost:3001/api/register', {
@@ -33,20 +35,26 @@ function Register() {
             const data = await response.json();
 
             if (response.ok) {
-                alert('Registration successful!');
-                navigate('/gymbro');
+                // Store user data in localStorage
+                localStorage.setItem('user', JSON.stringify({
+                    ...data.user,
+                    isLoggedIn: true
+                }));
+                
+                navigate('/home');
             } else {
-                alert(data.message || 'Registration failed');
+                setError(data.message || 'Registration failed');
             }
         } catch (error) {
             console.error('Error:', error);
-            alert('Registration failed. Please try again.');
+            setError('Registration failed. Please try again.');
         }
     };
 
     return ( 
         <div className="glass-bg">
             <h1>Register your account.</h1>
+            {error && <div className="error-message">{error}</div>}
             <form onSubmit={handleSubmit}>
                 <div className="text-input">
                     <input 
