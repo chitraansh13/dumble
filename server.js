@@ -216,3 +216,16 @@ const PORT = 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+// Get all gymbros for recommendations
+app.get('/api/recommendations', async (req, res) => {
+    try {
+      const users = await User.find({}, '-password'); // Exclude the password field
+      res.json(users);
+    } catch (error) {
+      console.error('Error fetching gymbros:', error);
+      res.status(500).json({ message: 'Failed to fetch gymbros' });
+    }
+  });
+  
+  

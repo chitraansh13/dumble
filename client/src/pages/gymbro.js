@@ -1,25 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import './gymbro.css';
 import Navbar from '../components/navbar';
 
 function Gymbro() {
     const [friends, setFriends] = useState([]);
-    const [recommendations, setRecommendations] = useState([
-        {
-            id: 1, name: "Davis Laid", bio: "Gymming for 5 days", age: "5 years", location: "bangalore", goal: "Bulking", img: "davislaid.jpg"
-        },
-        { id: 2, name: "Chitraansh Sulek", bio: "Took the bulk too far", age: "5 years", location: "bangalore", goal: "Cutting", img: "chitriEubank.jpeg" },
-        { id: 3, name: "Ayushi Keiani", bio: "Havent been to the gym since 2 years", age: "5 years", goal: "Cutting", location: "darjeeling", img: "ayushiKeiani.jpg" },
-    ]);
+    const [recommendations, setRecommendations] = useState([]);
+    const [error, setError] = useState('');
     const x = useMotionValue(0);
     const background = useTransform(x, [-100, 0, 100], ["#ff0000", "#383938", "#00ab00"]);
+
+    // Fetch gymbros from the database on component mount
+    useEffect(() => {
+        const fetchGymbros = async () => {
+            try {
+                const response = await fetch('http://localhost:3001/api/recommendations');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch gymbros');
+                }
+                const data = await response.json();
+                setRecommendations(data); // Set fetched gymbros as recommendations
+            } catch (error) {
+                console.error('Fetch gymbros error:', error);
+                setError(`Failed to load gymbros: ${error.message}`);
+            }
+        };
+
+        fetchGymbros();
+    }, []);
 
     const handleSwipe = (user, direction) => {
         if (direction === "right") {
             setFriends([...friends, user]);
         }
-        setRecommendations(recommendations.filter((u) => u.id !== user.id));
+        setRecommendations(recommendations.filter((u) => u.uuid !== user.uuid));
         x.set(0);
     };
 
@@ -31,7 +45,7 @@ function Gymbro() {
                 <ul>
                     {friends.map((friend, index) => (
                         <li key={index}>
-                            <img src={friend.img} alt={`${friend.name}'s profile`} className="profileImage" />
+                            <img src={friend.img || 'default-image.jpg'} alt={`${friend.name}'s profile`} className="profileImage" />
                             {friend.name}
                         </li>
                     ))}
@@ -39,10 +53,11 @@ function Gymbro() {
             </div>
 
             <div className="gymbroBody">
+                {error && <div className="error-message">{error}</div>}
                 <motion.div className="cardStack">
                     {recommendations.map((user, index) => (
                         <motion.div
-                            key={user.id}
+                            key={user.uuid}
                             className="card"
                             style={{ x, background }}
                             drag="x"
@@ -52,10 +67,12 @@ function Gymbro() {
                                 if (info.offset.x < -100) handleSwipe(user, "left");
                             }}
                         >
-                            <div className="cardImage" style={{ backgroundImage: `url(${user.img})` }}></div>
+                            <div className="cardImage" style={{ backgroundImage: `url(${user.img || 'default-image.jpg'})` }}></div>
                             <div className="cardInfo">
                                 <h2>{user.name}</h2>
-                                <p>{user.bio}</p>
+                                <p>{user.bio || 'No bio available'}</p>
+                                <p>Goal: {user.goal || 'No goal specified'}</p>
+                                <p>Location: {user.location || 'Location not provided'}</p>
                             </div>
                         </motion.div>
                     ))}
