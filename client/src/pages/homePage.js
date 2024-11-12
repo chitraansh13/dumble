@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import './homePage.css';
+import '../styles/homePage.css';
 
 function HomePage() {
     const [user, setUser] = useState(null);
@@ -67,7 +67,7 @@ function HomePage() {
                 <button onClick={handleLogout} className="logoutButton">Logout</button>
             </nav>
             {error && <div className="error-message">{error}</div>}
-            
+
             <div className="navigation-grid">
                 <Link to="/diet" className="nav-card">
                     <div className="nav-content">

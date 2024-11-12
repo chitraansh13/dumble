@@ -9,20 +9,13 @@ function Navbar() {
                 <img
                     src="/logo192.png"
                     alt="logo"
-                    className="appLogo"
+                    className="nav-appLogo"
                     width={50}
                     height={50}
                 />
             </Link>
-            <img
-                src="/logo512.png"
-                alt="profile"
-                className="pfp"
-                width={40}
-                height={40}
-            />
             <div>
-                <Link to="/profile" className="appLink">Profile</Link>
+                <Link to="/home" className="nav-appLink">Home</Link>
             </div>
         </nav>
     );

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './register.css';
+import '../styles/register.css';
 
 function Register() {
     const [formData, setFormData] = useState({
@@ -22,7 +22,7 @@ function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
-        
+
         try {
             const response = await fetch('http://localhost:3001/api/register', {
                 method: 'POST',
@@ -40,7 +40,7 @@ function Register() {
                     ...data.user,
                     isLoggedIn: true
                 }));
-                
+
                 navigate('/home');
             } else {
                 setError(data.message || 'Registration failed');
@@ -51,37 +51,37 @@ function Register() {
         }
     };
 
-    return ( 
+    return (
         <div className="glass-bg">
             <h1>Register your account.</h1>
             {error && <div className="error-message">{error}</div>}
             <form onSubmit={handleSubmit}>
                 <div className="text-input">
-                    <input 
-                        type="text" 
-                        placeholder="Name" 
+                    <input
+                        type="text"
+                        placeholder="Name"
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
-                        required 
+                        required
                     />
                     <br /><br />
-                    <input 
-                        type="email" 
-                        placeholder="Email" 
+                    <input
+                        type="email"
+                        placeholder="Email"
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        required 
+                        required
                     />
                     <br /><br />
-                    <input 
-                        type="password" 
-                        placeholder="Password" 
+                    <input
+                        type="password"
+                        placeholder="Password"
                         name="password"
                         value={formData.password}
                         onChange={handleChange}
-                        required 
+                        required
                     />
                 </div>
                 <div>
