@@ -1,7 +1,8 @@
+
 // client/src/pages/login.js
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import './login.css';
+import '../styles/login.css';
 
 function Login() {
     const [formData, setFormData] = useState({
@@ -22,7 +23,7 @@ function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
-        
+
         try {
             const response = await fetch('http://localhost:3001/api/login', {
                 method: 'POST',
@@ -40,7 +41,7 @@ function Login() {
                     ...data.user,
                     isLoggedIn: true
                 }));
-                
+
                 navigate('/home');
             } else {
                 setError(data.message || 'Login failed');
@@ -51,28 +52,28 @@ function Login() {
         }
     };
 
-    return ( 
+    return (
         <div className="glass-bg">
             <h1>Login to your account.</h1>
             {error && <div className="error-message">{error}</div>}
             <form onSubmit={handleSubmit}>
                 <div className="text-input">
-                    <input 
-                        type="email" 
-                        placeholder="Email" 
+                    <input
+                        type="email"
+                        placeholder="Email"
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        required 
+                        required
                     />
                     <br /><br />
-                    <input 
-                        type="password" 
-                        placeholder="Password" 
+                    <input
+                        type="password"
+                        placeholder="Password"
                         name="password"
                         value={formData.password}
                         onChange={handleChange}
-                        required 
+                        required
                     />
                 </div>
                 <div>

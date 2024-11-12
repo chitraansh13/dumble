@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
-import './gymbro.css';
+import '../styles/gymbro.css';
 import Navbar from '../components/navbar';
 
 function Gymbro() {

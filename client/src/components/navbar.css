@@ -14,24 +14,20 @@
     border-bottom: 1px solid rgb(66, 66, 66, 0.5);
 }
 
-.appLogo {
+.nav-appLogo {
+    margin-left: 250px;
     height: 40px;
     pointer-events: none;
 }
 
-.pfp {
-    margin-left: 1350px;
-    height: 40px;
-    pointer-events: none;
-}
 
-.appLink {
-    margin-left: 15px;
+.nav-appLink {
+    margin-right: 250px;
     text-decoration: none;
     color: #61dafb;
     font-size: 18px;
 }
 
-.appLink:hover {
+.nav-appLink:hover {
     color: #ffffff;
 }
