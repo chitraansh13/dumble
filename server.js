@@ -1,5 +1,3 @@
-// server.js
-
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -13,10 +11,17 @@ app.use(express.json());
 // MongoDB connection
 mongoose.connect('mongodb://localhost:27017/users', {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
 })
 .then(() => console.log('Connected to MongoDB'))
-.catch(err => console.error('MongoDB connection error:', err));
+.catch((err) => console.error('MongoDB connection error:', err));
+
+// Exercise Schema
+const exerciseSchema = new mongoose.Schema({
+    day: { type: String, required: true },
+    muscle: { type: String, required: true },
+    name: { type: String, required: true }
+});
 
 // User Schema
 const userSchema = new mongoose.Schema({
@@ -47,6 +52,10 @@ const userSchema = new mongoose.Schema({
         type: String, 
         default: null 
     },
+    exercises: {
+        type: [exerciseSchema],
+        default: [] // Ensure exercises is an empty array by default
+    },
     createdAt: { 
         type: Date, 
         default: Date.now 
@@ -57,113 +66,153 @@ const User = mongoose.model('User', userSchema);
 
 // Register endpoint
 app.post('/api/register', async (req, res) => {
-    try {
-        const { name, email, password } = req.body;
+  try {
+    const { name, email, password } = req.body;
 
-        // Check if user already exists
-        const existingUser = await User.findOne({ email });
-        if (existingUser) {
-            return res.status(400).json({ message: 'Email already registered' });
-        }
-
-        // Create new user with UUID
-        const user = new User({
-            uuid: uuidv4(),
-            name,
-            email,
-            password,
-            bio: null,
-            goal: null
-        });
-
-        const savedUser = await user.save();
-        
-        res.status(201).json({ 
-            message: 'Registration successful',
-            user: {
-                id: savedUser._id,
-                uuid: savedUser.uuid,
-                name: savedUser.name,
-                email: savedUser.email,
-                bio: savedUser.bio,
-                goal: savedUser.goal
-            }
-        });
-    } catch (error) {
-        console.error('Registration error:', error);
-        res.status(500).json({ message: 'Server error' });
+    // Check if user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: 'Email already registered' });
     }
+
+    // Create new user with UUID
+    const user = new User({
+      uuid: uuidv4(),
+      name,
+      email,
+      password,
+      bio: null,
+      goal: null,
+    });
+
+    const savedUser = await user.save();
+
+    res.status(201).json({
+      message: 'Registration successful',
+      user: {
+        id: savedUser._id,
+        uuid: savedUser.uuid,
+        name: savedUser.name,
+        email: savedUser.email,
+        bio: savedUser.bio,
+        goal: savedUser.goal,
+      },
+    });
+  } catch (error) {
+    console.error('Registration error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
 });
 
 // Login endpoint
 app.post('/api/login', async (req, res) => {
-    try {
-        const { email, password } = req.body;
+  try {
+    const { email, password } = req.body;
 
-        // Find user by email
-        const user = await User.findOne({ email });
+    // Find user by email
+    const user = await User.findOne({ email });
 
-        // If user doesn't exist
-        if (!user) {
-            return res.status(401).json({ message: 'Invalid email or password' });
-        }
-
-        // Check if password matches
-        if (user.password !== password) {
-            return res.status(401).json({ message: 'Invalid email or password' });
-        }
-
-        // Send back user data (excluding password)
-        res.json({
-            message: 'Login successful',
-            user: {
-                id: user._id,
-                uuid: user.uuid,
-                name: user.name,
-                email: user.email,
-                bio: user.bio,
-                goal: user.goal
-            }
-        });
-    } catch (error) {
-        console.error('Login error:', error);
-        res.status(500).json({ message: 'Server error' });
+    // If user doesn't exist
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid email or password' });
     }
+
+    // Check if password matches
+    if (user.password !== password) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
+
+    // Send back user data (excluding password)
+    res.json({
+      message: 'Login successful',
+      user: {
+        id: user._id,
+        uuid: user.uuid,
+        name: user.name,
+        email: user.email,
+        bio: user.bio,
+        goal: user.goal,
+      },
+    });
+  } catch (error) {
+    console.error('Login error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
 });
 
 // Update profile endpoint
 app.put('/api/users/:uuid/profile', async (req, res) => {
-    try {
-        const { bio, goal } = req.body;
-        const { uuid } = req.params;
+  try {
+    const { bio, goal } = req.body;
+    const { uuid } = req.params;
 
-        const user = await User.findOneAndUpdate(
-            { uuid },
-            { $set: { bio, goal } },
-            { new: true, select: '-password' }
-        );
+    const user = await User.findOneAndUpdate(
+      { uuid },
+      { $set: { bio, goal } },
+      { new: true, select: '-password' }
+    );
 
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-
-        res.json({
-            message: 'Profile updated successfully',
-            user: {
-                uuid: user.uuid,
-                name: user.name,
-                email: user.email,
-                bio: user.bio,
-                goal: user.goal
-            }
-        });
-    } catch (error) {
-        console.error('Profile update error:', error);
-        res.status(500).json({ message: 'Server error' });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
     }
+
+    res.json({
+      message: 'Profile updated successfully',
+      user: {
+        uuid: user.uuid,
+        name: user.name,
+        email: user.email,
+        bio: user.bio,
+        goal: user.goal,
+      },
+    });
+  } catch (error) {
+    console.error('Profile update error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Get user's exercises
+app.get('/api/users/:userId/exercises', async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const user = await User.findOne({ uuid: userId });
+    
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.json(user.exercises);
+  } catch (error) {
+    console.error('Get exercises error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Add exercise to user
+app.post('/api/users/:userId/exercises', async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { day, muscle, name } = req.body;
+
+    const user = await User.findOneAndUpdate(
+      { uuid: userId },
+      { $push: { exercises: { day, muscle, name } } },
+      { new: true, select: '-password' }
+    );
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.json(user.exercises);
+  } catch (error) {
+    console.error('Add exercise error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
 });
 
 const PORT = 3001;
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
