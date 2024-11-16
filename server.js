@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const { v4: uuidv4 } = require('uuid');
 const app = express();
+const bcrypt = require('bcrypt');
 
 // Middleware
 app.use(cors());
@@ -10,56 +11,56 @@ app.use(express.json());
 
 // MongoDB connection
 mongoose.connect('mongodb://localhost:27017/users', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 })
-.then(() => console.log('Connected to MongoDB'))
-.catch((err) => console.error('MongoDB connection error:', err));
+  .then(() => console.log('Connected to MongoDB'))
+  .catch((err) => console.error('MongoDB connection error:', err));
 
 // Exercise Schema
 const exerciseSchema = new mongoose.Schema({
-    day: { type: String, required: true },
-    muscle: { type: String, required: true },
-    name: { type: String, required: true }
+  day: { type: String, required: true },
+  muscle: { type: String, required: true },
+  name: { type: String, required: true }
 });
 
 // User Schema
 const userSchema = new mongoose.Schema({
-    uuid: { 
-        type: String, 
-        required: true, 
-        unique: true, 
-        default: uuidv4 
-    },
-    name: { 
-        type: String, 
-        required: true 
-    },
-    email: { 
-        type: String, 
-        required: true, 
-        unique: true 
-    },
-    password: { 
-        type: String, 
-        required: true 
-    },
-    bio: { 
-        type: String, 
-        default: null 
-    },
-    goal: { 
-        type: String, 
-        default: null 
-    },
-    exercises: {
-        type: [exerciseSchema],
-        default: [] // Ensure exercises is an empty array by default
-    },
-    createdAt: { 
-        type: Date, 
-        default: Date.now 
-    }
+  uuid: {
+    type: String,
+    required: true,
+    unique: true,
+    default: uuidv4
+  },
+  name: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  bio: {
+    type: String,
+    default: null
+  },
+  goal: {
+    type: String,
+    default: null
+  },
+  exercises: {
+    type: [exerciseSchema],
+    default: [] // Ensure exercises is an empty array by default
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 const User = mongoose.model('User', userSchema);
@@ -75,12 +76,15 @@ app.post('/api/register', async (req, res) => {
       return res.status(400).json({ message: 'Email already registered' });
     }
 
+    const salt = bcrypt.genSaltSync(10);
+    const hashedPassword = bcrypt.hashSync(password, salt);
+
     // Create new user with UUID
     const user = new User({
       uuid: uuidv4(),
       name,
       email,
-      password,
+      password: hashedPassword,
       bio: null,
       goal: null,
     });
@@ -177,7 +181,7 @@ app.get('/api/users/:userId/exercises', async (req, res) => {
   try {
     const { userId } = req.params;
     const user = await User.findOne({ uuid: userId });
-    
+
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
@@ -219,13 +223,12 @@ app.listen(PORT, () => {
 
 // Get all gymbros for recommendations
 app.get('/api/recommendations', async (req, res) => {
-    try {
-      const users = await User.find({}, '-password'); // Exclude the password field
-      res.json(users);
-    } catch (error) {
-      console.error('Error fetching gymbros:', error);
-      res.status(500).json({ message: 'Failed to fetch gymbros' });
-    }
-  });
-  
-  
+  try {
+    const users = await User.find({}, '-password'); // Exclude the password field
+    res.json(users);
+  } catch (error) {
+    console.error('Error fetching gymbros:', error);
+    res.status(500).json({ message: 'Failed to fetch gymbros' });
+  }
+});
+
