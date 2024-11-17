@@ -22,6 +22,7 @@ function Landing() {
                     <Link to="/login" className="appLink">Login</Link>
                     <Link to="/register" className="appLink">Register</Link>
                     <Link to="/gymbro" className="appLink">Gymbro</Link>
+                    <Link to="/dashboard" className="appLink">Dashboard</Link>
                 </div>
             </nav>
         </div>

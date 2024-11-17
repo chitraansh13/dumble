@@ -6,6 +6,8 @@ import Login from './pages/login';
 import Gymbro from './pages/gymbro';
 import HomePage from './pages/homePage';
 import MakeYourRoutine from './pages/MakeYourRoutine';
+import Dashboard from './pages/dashboard';
+import WorkoutPage from './pages/workoutPage';
 
 function App() {
     return (
@@ -17,6 +19,8 @@ function App() {
                 <Route path="/gymbro" element={<Gymbro />} />
                 <Route path="/home" element={<HomePage />} />
                 <Route path="/workout-routine" element={<MakeYourRoutine />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/workoutPage" element={<WorkoutPage />} />
             </Routes>
         </Router>
     );
