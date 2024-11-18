@@ -5,7 +5,7 @@
     background-position: center;
     background-repeat: no-repeat;
     min-height: 100vh;
-    margin-top: 7vh;;
+    margin-top: 7vh;
 }
 
 .workout-content {
@@ -35,3 +35,62 @@ h2 {
     color: #61dafb;
     margin-bottom: 1rem;
 }
+
+/* Diet section styles */
+.diet-section {
+    margin-top: 3rem;
+}
+
+.diet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.calories-card {
+    background: rgba(20, 20, 20, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 0.5rem;
+    padding: 1rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 150px;
+}
+
+.calories-label {
+    color: #888;
+    font-size: 0.875rem;
+}
+
+.calories-value {
+    color: #febd5d;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.diet-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.loading,
+.error-message,
+.no-workouts,
+.no-diet-entries {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background: rgba(20, 20, 20, 0.95);
+    backdrop-filter: blur(10px);
+    text-align: center;
+    color: #888;
+}
+
+.error-message {
+    color: #ff4444;
+    background: rgba(255, 68, 68, 0.1);
+}
+

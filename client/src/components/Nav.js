@@ -1,16 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Nav.css';
 
 const Nav = () => {
-    const [user, setUser] = useState(null);
-    //const [editing, setEditing] = useState(false);
-    //const [profile, setProfile] = useState({
-    //    bio: '',
-    //    goal: ''
-    // });
-    // const [error, setError] = useState('');
     const navigate = useNavigate();
+
     const handleLogout = () => {
         localStorage.removeItem('user');
         navigate('/login');
@@ -26,6 +20,7 @@ const Nav = () => {
                 <a href="/workoutPage">Workouts</a>
                 <a href="/gymbro">Gymbros</a>
                 <a href="/contact">Contact Us</a>
+                <a href="/profile">Profile</a>
             </div>
             <div className="navbar-right">
                 <img src="/avatar.jpg" alt="Profile" className="avatar" />

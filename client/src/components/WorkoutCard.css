@@ -1,6 +1,5 @@
 .workout-card {
     background: rgba(20, 20, 20, 0.95);
-    /* Dark background with slight transparency */
     backdrop-filter: blur(10px);
     border-radius: 0.5rem;
     padding: 1.5rem;
@@ -14,54 +13,10 @@
     font-size: 0.875rem;
     margin-bottom: 0.75rem;
     color: white;
-}
-
-.tag.legs {
-    background-color: #a5d0f4;
-}
-
-.tag.chest {
-    background-color: #417096;
-}
-
-.tag.arms {
-    background-color: #634a37;
-}
-
-.tag.back {
-    background-color: #6aab6d;
-}
-
-.tag.shoulder {
-    background-color: #febd5d;
-}
-
-.tag.abs {
-    background-color: #e35d8a;
+    transition: background-color 0.2s ease;
 }
 
 .workout-card h3 {
     margin: 0 0 0.5rem 0;
     color: #61dafb;
-}
-
-.count {
-    color: #CACACA;
-    margin-bottom: 1rem;
-}
-
-.workout-meta {
-    display: flex;
-    gap: 1rem;
-    color: #CACACA;
-}
-
-.meta-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.meta-item svg {
-    color: #CACACA;
 }

@@ -1,20 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Calendar.css';
 
 const Calendar = () => {
-    const month = "March 2024";
+    const [currentDate, setCurrentDate] = useState(new Date());
+    const [selectedDate, setSelectedDate] = useState(currentDate.getDate());
+
+    const months = [
+        'January', 'February', 'March', 'April', 'May', 'June', 
+        'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+
     const days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
-    const dates = Array.from({ length: 31 }, (_, i) => i + 1);
-    const selectedDate = 23;
+
+    const getDaysInMonth = (date) => new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+    const getFirstDayOfMonth = (date) => new Date(date.getFullYear(), date.getMonth(), 1).getDay();
+
+    const changeMonth = (direction) => {
+        const newDate = new Date(currentDate);
+        newDate.setMonth(currentDate.getMonth() + direction);
+        setCurrentDate(newDate);
+    };
+
+    const daysInMonth = getDaysInMonth(currentDate);
+    const firstDayOfMonth = getFirstDayOfMonth(currentDate);
 
     return (
         <div className="calendar">
             <div className="calendar-header">
                 <div className="month-selector">
-                    <span>{month}</span>
+                    <span>
+                        {months[currentDate.getMonth()]} {currentDate.getFullYear()}
+                    </span>
                     <div className="month-nav">
-                        <button className="nav-btn">‹</button>
-                        <button className="nav-btn">›</button>
+                        <button className="nav-btn" onClick={() => changeMonth(-1)}>‹</button>
+                        <button className="nav-btn" onClick={() => changeMonth(1)}>›</button>
                     </div>
                 </div>
             </div>
@@ -24,14 +43,19 @@ const Calendar = () => {
                 ))}
             </div>
             <div className="dates">
-                {/* Add empty cells for alignment */}
-                {Array(5).fill(null).map((_, i) => (
+                {Array(firstDayOfMonth).fill(null).map((_, i) => (
                     <div key={`empty-${i}`} className="date empty"></div>
                 ))}
-                {dates.map(date => (
+                {Array.from({ length: daysInMonth }, (_, i) => i + 1).map(date => (
                     <div
                         key={date}
-                        className={`date ${date === selectedDate ? 'selected' : ''}`}
+                        className={`date ${
+                            date === selectedDate && 
+                            currentDate.getMonth() === new Date().getMonth() && 
+                            currentDate.getFullYear() === new Date().getFullYear() 
+                                ? 'selected' : ''
+                        }`}
+                        onClick={() => setSelectedDate(date)}
                     >
                         {date}
                     </div>
