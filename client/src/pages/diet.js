@@ -6,16 +6,13 @@ const DAYS = [
   'Friday', 'Saturday', 'Sunday'
 ];
 
-const MEAL_TYPES = [
-  'Breakfast', 'Lunch', 'Snack', 'Dinner'
-];
-
 const MakeYourDiet = () => {
   const [day, setDay] = useState('');
   const [mealType, setMealType] = useState('');
   const [foodItem, setFoodItem] = useState('');
   const [calories, setCalories] = useState('');
   const [dietEntries, setDietEntries] = useState([]);
+  const [filteredDay, setFilteredDay] = useState('');
   const [user, setUser] = useState(null);
   const [error, setError] = useState('');
 
@@ -73,6 +70,14 @@ const MakeYourDiet = () => {
     }
   };
 
+  const handleDayFilterChange = (e) => {
+    setFilteredDay(e.target.value);
+  };
+
+  const filteredEntries = filteredDay 
+    ? dietEntries.filter(entry => entry.day === filteredDay) 
+    : [];
+
   return (
     <div className="diet-container">
       <h1>Make Your Diet Plan</h1>
@@ -99,7 +104,7 @@ const MakeYourDiet = () => {
             required
           >
             <option value="">Select Meal Type</option>
-            {MEAL_TYPES.map(m => (
+            {['Breakfast', 'Lunch', 'Snack', 'Dinner'].map(m => (
               <option key={m} value={m}>{m}</option>
             ))}
           </select>
@@ -127,15 +132,29 @@ const MakeYourDiet = () => {
         <button type="submit">Add Diet Entry</button>
       </form>
       <h2>Your Diet Plan</h2>
-      <div className="diet-entries-list">
-        <ul>
-          {dietEntries.map((entry, index) => (
-            <li key={index}>
-              Day: {entry.day}, Meal: {entry.mealType}, 
-              Food: {entry.foodItem}, Calories: {entry.calories}
-            </li>
+      <label className="filter-day">
+        Filter by Day:
+        <select value={filteredDay} onChange={handleDayFilterChange}>
+          <option value="">Select Day</option>
+          {DAYS.map(d => (
+            <option key={d} value={d}>{d}</option>
           ))}
-        </ul>
+        </select>
+      </label>
+      <div className="diet-entries-list">
+        {filteredEntries.length === 0 && filteredDay ? (
+          <p className="no-entries-message">No entries for {filteredDay}</p>
+        ) : (
+          <ul className="diet-list">
+            {filteredEntries.map((entry, index) => (
+              <li key={index} className="diet-item">
+                <div className="diet-meal-type">{entry.mealType}</div>
+                <div className="diet-food-item">{entry.foodItem}</div>
+                <div className="diet-calories">{entry.calories} kcal</div>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );

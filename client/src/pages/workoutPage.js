@@ -67,7 +67,7 @@ const WorkoutPage = () => {
 
     // Calculate total calories for the day
     const totalCalories = dietEntries.reduce((total, entry) => total + (entry.calories || 0), 0);
-    
+
     return (
         <div className="workout-page">
             <Nav />

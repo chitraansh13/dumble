@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Calendar.css';
 
-const Calendar = () => {
+const Calendar = ({ onDateSelect }) => {
     const [currentDate, setCurrentDate] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(currentDate.getDate());
 
@@ -23,6 +23,13 @@ const Calendar = () => {
 
     const daysInMonth = getDaysInMonth(currentDate);
     const firstDayOfMonth = getFirstDayOfMonth(currentDate);
+
+    const handleDateClick = (date) => {
+        const fullDate = new Date(currentDate);
+        fullDate.setDate(date);
+        setSelectedDate(date);
+        onDateSelect(fullDate); // Notify parent of the date change
+    };
 
     return (
         <div className="calendar">
@@ -50,12 +57,12 @@ const Calendar = () => {
                     <div
                         key={date}
                         className={`date ${
-                            date === selectedDate && 
-                            currentDate.getMonth() === new Date().getMonth() && 
-                            currentDate.getFullYear() === new Date().getFullYear() 
+                            date === selectedDate &&
+                            currentDate.getMonth() === new Date().getMonth() &&
+                            currentDate.getFullYear() === new Date().getFullYear()
                                 ? 'selected' : ''
                         }`}
-                        onClick={() => setSelectedDate(date)}
+                        onClick={() => handleDateClick(date)}
                     >
                         {date}
                     </div>
