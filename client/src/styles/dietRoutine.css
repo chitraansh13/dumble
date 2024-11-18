@@ -1,0 +1,123 @@
+/* Styling for Make Your Diet page */
+.diet-container {
+    box-sizing: border-box;
+    position: absolute;
+    left: 15%;
+    right: 15%;
+    top: 10%;
+    bottom: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(20, 20, 20, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 2%;
+    color: #CACACA;
+    overflow-y: auto;
+}
+
+.diet-container h1 {
+    color: #CACACA;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.diet-container h2 {
+    color: #CACACA;
+    font-size: 20px;
+    margin: 20px 0 10px;
+    text-align: center;
+}
+
+.diet-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.diet-form label {
+    width: 90%;
+    margin-bottom: 15px;
+    color: #CACACA;
+}
+
+.diet-form input, .diet-form select {
+    background-color: #2b2b2b;
+    color: #CACACA;
+    width: 100%;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    box-shadow: inset 0 0 0 1px #3a3a3a;
+    transition: box-shadow 0.3s;
+    margin-top: 5px;
+    appearance: none;
+    cursor: pointer;
+}
+
+.diet-form input:focus, .diet-form select:focus {
+    outline: none;
+    box-shadow: inset 0 0 0 1px #5e5e5e;
+}
+
+.diet-form ::placeholder {
+    color: #757575;
+    opacity: 1;
+    font-family: "Poppins", sans-serif;
+}
+
+.diet-form button {
+    background-color: #CACACA;
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px 0;
+    width: 90%;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.diet-form button:hover {
+    background-color: #9f9f9f;
+}
+
+.diet-entries-list {
+    width: 90%;
+    margin-top: 20px;
+}
+
+.diet-entries-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.diet-entries-list li {
+    background-color: #2b2b2b;
+    color: #CACACA;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+
+.error-message {
+    color: #ff4444;
+    font-size: 14px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* Optional custom dropdown arrow */
+.diet-form select {
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23CACACA" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+}

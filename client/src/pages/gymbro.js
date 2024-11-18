@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import '../styles/gymbro.css';
-import Navbar from '../components/navbar';
+import Nav from '../components/Nav';
 
 function Gymbro() {
     const [friends, setFriends] = useState([]);
@@ -39,7 +39,7 @@ function Gymbro() {
 
     return (
         <div className="gymbroContainer">
-            <Navbar />
+            <Nav />
             <div className="sidebar">
                 <h3>Gymbros</h3>
                 <ul>

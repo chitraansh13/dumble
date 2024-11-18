@@ -1,4 +1,5 @@
 .home-container {
+    margin-top:1000px;
     padding: 20px;
     max-width: 100vw;
     margin: 0 auto;
@@ -142,3 +143,65 @@
 .saveButton:hover {
     background: radial-gradient(104.44% 104.44% at 50% 50%, #248424 0%, #759675 100%);
 }
+
+/* Styled inputs for the profile section */
+.styled-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: #f9f9f9;
+}
+
+/* Styled button group */
+.styled-button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.styled-saveButton {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.styled-saveButton:hover {
+    background-color: #218838;
+}
+
+.styled-cancelButton {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.styled-cancelButton:hover {
+    background-color: #c82333;
+}
+
+/* Styled edit button */
+.styled-editButton {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.styled-editButton:hover {
+    background-color: #0056b3;
+}
+

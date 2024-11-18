@@ -1,4 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import '../styles/workoutRoutine.css';
+
+const DAYS = [
+  'Monday', 'Tuesday', 'Wednesday', 'Thursday', 
+  'Friday', 'Saturday', 'Sunday'
+];
+
+const MUSCLES = [
+  'Back', 'Biceps', 'Shoulders', 
+  'Forearms', 'Chest', 'Abs', 
+  'Triceps', 'Arms', 'Cardio', 'Legs'
+];
 
 const MakeYourRoutine = () => {
   const [day, setDay] = useState('');
@@ -62,32 +74,58 @@ const MakeYourRoutine = () => {
   };
 
   return (
-    <div>
+    <div className="routine-container">
       <h1>Make Your Routine</h1>
       {error && <div className="error-message">{error}</div>}
-      <form onSubmit={handleAddExercise}>
+      <form onSubmit={handleAddExercise} className="routine-form">
         <label>
           Choose your day:
-          <input type="text" value={day} onChange={(e) => setDay(e.target.value)} />
+          <select 
+            value={day} 
+            onChange={(e) => setDay(e.target.value)} 
+            required
+          >
+            <option value="">Select Day</option>
+            {DAYS.map(d => (
+              <option key={d} value={d}>{d}</option>
+            ))}
+          </select>
         </label>
         <label>
           Choose which muscle:
-          <input type="text" value={muscle} onChange={(e) => setMuscle(e.target.value)} />
+          <select 
+            value={muscle} 
+            onChange={(e) => setMuscle(e.target.value)} 
+            required
+          >
+            <option value="">Select Muscle Group</option>
+            {MUSCLES.map(m => (
+              <option key={m} value={m}>{m}</option>
+            ))}
+          </select>
         </label>
         <label>
           Name of the Exercise:
-          <input type="text" value={exercise} onChange={(e) => setExercise(e.target.value)} />
+          <input 
+            type="text" 
+            placeholder="e.g., Bench Press" 
+            value={exercise} 
+            onChange={(e) => setExercise(e.target.value)} 
+            required 
+          />
         </label>
         <button type="submit">Add Exercise</button>
       </form>
       <h2>Your Exercises</h2>
-      <ul>
-        {exercises.map((exercise, index) => (
-          <li key={index}>
-            Day: {exercise.day}, Muscle: {exercise.muscle}, Name: {exercise.name}
-          </li>
-        ))}
-      </ul>
+      <div className="exercises-list">
+        <ul>
+          {exercises.map((exercise, index) => (
+            <li key={index}>
+              Day: {exercise.day}, Muscle: {exercise.muscle}, Name: {exercise.name}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };
