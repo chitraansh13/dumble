@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { motion, useMotionValue, useTransform } from 'framer-motion';
+import { X, } from 'lucide-react';
 import '../styles/gymbro.css';
 import Nav from '../components/Nav';
+import RightButton from '../components/RightButton';
+import LeftButton from '../components/LeftButton';
 
 function Gymbro() {
     const [friends, setFriends] = useState([]);
     const [recommendations, setRecommendations] = useState([]);
-    const [error, setError] = useState('');
-    const x = useMotionValue(0);
-    const background = useTransform(x, [-100, 0, 100], ["#ff0000", "#383938", "#00ab00"]);
+    const [error, setError] = useState(null);
 
     // Fetch gymbros from the database on component mount
     useEffect(() => {
@@ -19,7 +19,7 @@ function Gymbro() {
                     throw new Error('Failed to fetch gymbros');
                 }
                 const data = await response.json();
-                setRecommendations(data); // Set fetched gymbros as recommendations
+                setRecommendations(data);
             } catch (error) {
                 console.error('Fetch gymbros error:', error);
                 setError(`Failed to load gymbros: ${error.message}`);
@@ -29,13 +29,20 @@ function Gymbro() {
         fetchGymbros();
     }, []);
 
-    const handleSwipe = (user, direction) => {
-        if (direction === "right") {
-            setFriends([...friends, user]);
-        }
-        setRecommendations(recommendations.filter((u) => u.uuid !== user.uuid));
-        x.set(0);
+    // Handle rejecting a user (removing from recommendations)
+    const handleReject = (uuid) => {
+        setRecommendations(prev => prev.filter(user => user.uuid !== uuid));
     };
+
+    // Handle accepting a user (adding to friends)
+    const handleAccept = (user) => {
+        setFriends(prev => [...prev, user]);
+        setRecommendations(prev => prev.filter(rec => rec.uuid !== user.uuid));
+    };
+
+    if (error) {
+        return <div className="error-message p-4 text-red-500">{error}</div>;
+    }
 
     return (
         <div className="gymbroContainer">
@@ -53,30 +60,24 @@ function Gymbro() {
             </div>
 
             <div className="gymbroBody">
-                {error && <div className="error-message">{error}</div>}
-                <motion.div className="cardStack">
+                <div className="cardStack">
                     {recommendations.map((user, index) => (
-                        <motion.div
-                            key={user.uuid}
-                            className="card"
-                            style={{ x, background }}
-                            drag="x"
-                            dragConstraints={{ left: 0, right: 0 }}
-                            onDragEnd={(e, info) => {
-                                if (info.offset.x > 100) handleSwipe(user, "right");
-                                if (info.offset.x < -100) handleSwipe(user, "left");
-                            }}
-                        >
+                        <div key={user.uuid} className="card">
                             <div className="cardImage" style={{ backgroundImage: `url(${user.img || 'default-image.jpg'})` }}></div>
                             <div className="cardInfo">
                                 <h2>{user.name}</h2>
                                 <p>{user.bio || 'No bio available'}</p>
                                 <p>Goal: {user.goal || 'No goal specified'}</p>
                                 <p>Location: {user.location || 'Location not provided'}</p>
+
+                                <div className="button-div">
+                                    <LeftButton onReject={handleReject} userId={user.uuid} />
+                                    <RightButton onAccept={handleAccept} user={user} />
+                                </div>
                             </div>
-                        </motion.div>
+                        </div>
                     ))}
-                </motion.div>
+                </div>
             </div>
         </div>
     );

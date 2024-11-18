@@ -1,0 +1,76 @@
+/* RightButton.css */
+.right-button {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    align-items: center;
+    margin: 0 auto;
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+    font-size: 1.125rem;
+    background-color: rgba(249, 250, 251, 1);
+    backdrop-filter: blur(12px);
+    position: relative;
+    z-index: 10;
+    padding: 0.5rem 1rem;
+    overflow: hidden;
+    border: 2px solid rgba(249, 250, 251, 1);
+    border-radius: 9999px;
+    isolation: auto;
+    cursor: pointer;
+}
+
+.right-button::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    aspect-ratio: 1;
+    background-color: #10b981;
+    left: -100%;
+    z-index: -10;
+    border-radius: 9999px;
+    transition: all 700ms;
+}
+
+.right-button:hover::before {
+    width: 100%;
+    left: 0;
+    transform: scale(1.5);
+}
+
+.right-button:hover {
+    color: rgba(249, 250, 251, 1);
+}
+
+.tick-icon {
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid #374151;
+    border-radius: 9999px;
+    padding: 0.5rem;
+    transform: scale(1);
+    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tick-icon path {
+    fill: #1f2937;
+    transform-origin: center;
+    transform: scale(1);
+    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.right-button:hover .tick-icon {
+    background-color: rgba(249, 250, 251, 1);
+    border: none;
+    transform: scale(1.1);
+}
+
+.right-button:hover .tick-icon path {
+    fill: #10b981;
+    transform: scale(1.1);
+}
+
+@media (min-width: 1024px) {
+    .right-button {
+        font-weight: 600;
+    }
+}

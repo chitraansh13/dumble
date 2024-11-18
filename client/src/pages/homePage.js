@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import Nav from '../components/Nav';
 import StatsCard from '../components/StatsCard';
 import FriendsCard from '../components/FriendsCard';
-import '../styles/dashboard.css'; 
+import '../styles/dashboard.css';
 
 const HomePage = () => {
     const [user, setUser] = useState(null);
@@ -26,7 +26,7 @@ const HomePage = () => {
             <Nav />
             <div className="dashboard">
                 <h2 className='intro-text'>Hi, {user.name}!</h2>
-                <br/>
+                <br />
                 <div className="stats-container">
                     <Link to="/diet" className="card-link">
                         <StatsCard
@@ -36,7 +36,7 @@ const HomePage = () => {
                             icon="🔥"
                         />
                     </Link>
-                    <Link to="/track-workout" className="card-link">
+                    <Link to="/workoutPage" className="card-link">
                         <StatsCard
                             title="Track Workout"
                             value="Log"

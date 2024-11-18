@@ -23,7 +23,7 @@ const Nav = () => {
                 <a href="/profile">Profile</a>
             </div>
             <div className="navbar-right">
-                <img src="/avatar.jpg" alt="Profile" className="avatar" />
+                <img src="/logo512.png" alt="Profile" className="avatar" />
                 <a href="#" onClick={handleLogout} className="logout">Logout</a>
             </div>
         </nav>

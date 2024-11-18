@@ -161,3 +161,22 @@ html {
     transform: translateX(-40px);
     z-index: 1;
 }
+
+.card .explore-button {
+    padding: 0.75rem;
+    background: white;
+    border: none;
+    transition: all 0.2s ease;
+}
+
+.card .explore-button:hover::before {
+    display: none;
+}
+
+.card .explore-button:hover {
+    transform: scale(1.1);
+}
+
+.button-div {
+    display: flex;
+}
