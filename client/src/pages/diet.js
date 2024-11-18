@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/dietRoutine.css';
+import Nav from '../components/Nav';
 
 const DAYS = [
   'Monday', 'Tuesday', 'Wednesday', 'Thursday', 
@@ -79,82 +80,85 @@ const MakeYourDiet = () => {
     : [];
 
   return (
-    <div className="diet-container">
-      <h1>Make Your Diet Plan</h1>
-      {error && <div className="error-message">{error}</div>}
-      <form onSubmit={handleAddDietEntry} className="diet-form">
-        <label>
-          Choose your day:
-          <select 
-            value={day} 
-            onChange={(e) => setDay(e.target.value)} 
-            required
-          >
+    <div>
+      <Nav/>
+      <div className="diet-container">
+        <h1>Make Your Diet Plan</h1>
+        {error && <div className="error-message">{error}</div>}
+        <form onSubmit={handleAddDietEntry} className="diet-form">
+          <label>
+            Choose your day:
+            <select 
+              value={day} 
+              onChange={(e) => setDay(e.target.value)} 
+              required
+            >
+              <option value="">Select Day</option>
+              {DAYS.map(d => (
+                <option key={d} value={d}>{d}</option>
+              ))}
+            </select>
+          </label>
+          <label>
+            Choose meal type:
+            <select 
+              value={mealType} 
+              onChange={(e) => setMealType(e.target.value)} 
+              required
+            >
+              <option value="">Select Meal Type</option>
+              {['Breakfast', 'Lunch', 'Snack', 'Dinner'].map(m => (
+                <option key={m} value={m}>{m}</option>
+              ))}
+            </select>
+          </label>
+          <label>
+            Food Item:
+            <input 
+              type="text" 
+              placeholder="e.g., Grilled Chicken Salad" 
+              value={foodItem} 
+              onChange={(e) => setFoodItem(e.target.value)} 
+              required 
+            />
+          </label>
+          <label>
+            Calories:
+            <input 
+              type="number" 
+              placeholder="Calories" 
+              value={calories} 
+              onChange={(e) => setCalories(e.target.value)} 
+              required 
+            />
+          </label>
+          <button type="submit">Add Diet Entry</button>
+        </form>
+        <h2>Your Diet Plan</h2>
+        <label className="filter-day">
+          Filter by Day:
+          <select value={filteredDay} onChange={handleDayFilterChange}>
             <option value="">Select Day</option>
             {DAYS.map(d => (
               <option key={d} value={d}>{d}</option>
             ))}
           </select>
         </label>
-        <label>
-          Choose meal type:
-          <select 
-            value={mealType} 
-            onChange={(e) => setMealType(e.target.value)} 
-            required
-          >
-            <option value="">Select Meal Type</option>
-            {['Breakfast', 'Lunch', 'Snack', 'Dinner'].map(m => (
-              <option key={m} value={m}>{m}</option>
-            ))}
-          </select>
-        </label>
-        <label>
-          Food Item:
-          <input 
-            type="text" 
-            placeholder="e.g., Grilled Chicken Salad" 
-            value={foodItem} 
-            onChange={(e) => setFoodItem(e.target.value)} 
-            required 
-          />
-        </label>
-        <label>
-          Calories:
-          <input 
-            type="number" 
-            placeholder="Calories" 
-            value={calories} 
-            onChange={(e) => setCalories(e.target.value)} 
-            required 
-          />
-        </label>
-        <button type="submit">Add Diet Entry</button>
-      </form>
-      <h2>Your Diet Plan</h2>
-      <label className="filter-day">
-        Filter by Day:
-        <select value={filteredDay} onChange={handleDayFilterChange}>
-          <option value="">Select Day</option>
-          {DAYS.map(d => (
-            <option key={d} value={d}>{d}</option>
-          ))}
-        </select>
-      </label>
-      <div className="diet-entries-list">
-        {filteredEntries.length === 0 && filteredDay ? (
-          <p className="no-entries-message">No entries for {filteredDay}</p>
-        ) : (
-          <ul className="diet-list">
-            {filteredEntries.map((entry, index) => (
-              <li key={index} className="diet-item">
-                <div className="diet-meal-type">{entry.mealType}</div>
-                <div className="diet-food-item">{entry.foodItem}</div>
-                <div className="diet-calories">{entry.calories} kcal</div>
-              </li>
-            ))}
-          </ul>
-        )}
+        <div className="diet-entries-list">
+          {filteredEntries.length === 0 && filteredDay ? (
+            <p className="no-entries-message">No entries for {filteredDay}</p>
+          ) : (
+            <ul className="diet-list">
+              {filteredEntries.map((entry, index) => (
+                <li key={index} className="diet-item">
+                  <div className="diet-meal-type">{entry.mealType}</div>
+                  <div className="diet-food-item">{entry.foodItem}</div>
+                  <div className="diet-calories">{entry.calories} kcal</div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </div>
     </div>
   );

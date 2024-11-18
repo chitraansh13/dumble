@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/workoutRoutine.css';
+import Nav from '../components/Nav';
 
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 const MUSCLES = [
@@ -67,61 +68,64 @@ const MakeYourRoutine = () => {
   const filteredExercises = exercises.filter((ex) => ex.day === filterDay);
 
   return (
-    <div className="routine-container">
-      <h1>Make Your Routine</h1>
-      {error && <div className="error-message">{error}</div>}
-      <form onSubmit={handleAddExercise} className="routine-form">
-        <label>
-          Choose your day:
-          <select value={day} onChange={(e) => setDay(e.target.value)} required>
-            <option value="">Select Day</option>
-            {DAYS.map((d) => (
-              <option key={d} value={d}>{d}</option>
+    <div>
+      <Nav/>
+      <div className="routine-container">
+        <h1>Make Your Routine</h1>
+        {error && <div className="error-message">{error}</div>}
+        <form onSubmit={handleAddExercise} className="routine-form">
+          <label>
+            Choose your day:
+            <select value={day} onChange={(e) => setDay(e.target.value)} required>
+              <option value="">Select Day</option>
+              {DAYS.map((d) => (
+                <option key={d} value={d}>{d}</option>
+              ))}
+            </select>
+          </label>
+          <label>
+            Choose which muscle:
+            <select value={muscle} onChange={(e) => setMuscle(e.target.value)} required>
+              <option value="">Select Muscle Group</option>
+              {MUSCLES.map((m) => (
+                <option key={m} value={m}>{m}</option>
+              ))}
+            </select>
+          </label>
+          <label>
+            Name of the Exercise:
+            <input
+              type="text"
+              placeholder="e.g., Bench Press"
+              value={exercise}
+              onChange={(e) => setExercise(e.target.value)}
+              required
+            />
+          </label>
+          <button type="submit">Add Exercise</button>
+        </form>
+        <div className="filter-day">
+          <label>
+            Filter by Day:
+            <select value={filterDay} onChange={(e) => setFilterDay(e.target.value)}>
+              {DAYS.map((d) => (
+                <option key={d} value={d}>{d}</option>
+              ))}
+            </select>
+          </label>
+        </div>
+        <h2>Your Exercises</h2>
+        <div className="exercises-list">
+          <ul>
+            {filteredExercises.map((exercise, index) => (
+              <li key={index} className="exercise-item">
+                <span className="exercise-muscle">{exercise.muscle}</span>
+                <br/>
+                <span className="exercise-name">{exercise.name}</span>
+              </li>
             ))}
-          </select>
-        </label>
-        <label>
-          Choose which muscle:
-          <select value={muscle} onChange={(e) => setMuscle(e.target.value)} required>
-            <option value="">Select Muscle Group</option>
-            {MUSCLES.map((m) => (
-              <option key={m} value={m}>{m}</option>
-            ))}
-          </select>
-        </label>
-        <label>
-          Name of the Exercise:
-          <input
-            type="text"
-            placeholder="e.g., Bench Press"
-            value={exercise}
-            onChange={(e) => setExercise(e.target.value)}
-            required
-          />
-        </label>
-        <button type="submit">Add Exercise</button>
-      </form>
-      <div className="filter-day">
-        <label>
-          Filter by Day:
-          <select value={filterDay} onChange={(e) => setFilterDay(e.target.value)}>
-            {DAYS.map((d) => (
-              <option key={d} value={d}>{d}</option>
-            ))}
-          </select>
-        </label>
-      </div>
-      <h2>Your Exercises</h2>
-      <div className="exercises-list">
-        <ul>
-          {filteredExercises.map((exercise, index) => (
-            <li key={index} className="exercise-item">
-              <span className="exercise-muscle">{exercise.muscle}</span>
-              <br/>
-              <span className="exercise-name">{exercise.name}</span>
-            </li>
-          ))}
-        </ul>
+          </ul>
+        </div>
       </div>
     </div>
   );
