@@ -8,7 +8,11 @@ const ProfilePage = () => {
     const [editing, setEditing] = useState(false);
     const [profile, setProfile] = useState({
         bio: '',
-        goal: ''
+        goal: '',
+        location: '',
+        age: '',
+        experience: '',
+        gender: '',
     });
     const [error, setError] = useState('');
     const navigate = useNavigate();
@@ -23,7 +27,11 @@ const ProfilePage = () => {
         setUser(userData);
         setProfile({
             bio: userData.bio || '',
-            goal: userData.goal || ''
+            goal: userData.goal || '',
+            location: userData.location || '',
+            age: userData.age || '',
+            experience: userData.experience || '',
+            gender: userData.gender || ''
         });
     }, [navigate]);
 
@@ -41,7 +49,15 @@ const ProfilePage = () => {
             const data = await response.json();
 
             if (response.ok) {
-                const updatedUser = { ...user, ...data.user };
+                const updatedUser = {
+                    ...user,
+                    bio: profile.bio,
+                    goal: profile.goal,
+                    location: profile.location,
+                    age: profile.age,
+                    experience: profile.experience,
+                    gender: profile.gender
+                };
                 localStorage.setItem('user', JSON.stringify(updatedUser));
                 setUser(updatedUser);
                 setEditing(false);
@@ -62,7 +78,7 @@ const ProfilePage = () => {
             <div className="profile-container">
                 <h1>Your Profile</h1>
                 {error && <div className="error-message">{error}</div>}
-                
+
                 {editing ? (
                     <div className="profile-edit">
                         <div className="input-group">
@@ -82,6 +98,49 @@ const ProfilePage = () => {
                                 placeholder="What's your fitness goal?"
                                 className="profile-textarea"
                             />
+                        </div>
+                        <div className="input-group">
+                            <label>Location:</label>
+                            <textarea
+                                value={profile.location || ''}
+                                onChange={(e) => setProfile({ ...profile, location: e.target.value })}
+                                placeholder="Which city do you live in?"
+                                className="profile-textarea"
+                            />
+                        </div>
+                        <div className="input-group">
+                            <label>Age:</label>
+                            <textarea
+                                value={profile.age || ''}
+                                onChange={(e) => setProfile({ ...profile, age: e.target.value })}
+                                placeholder="What's your age?"
+                                className="profile-textarea"
+                            />
+                        </div>
+                        <div className="dropdown">
+                            <label>Experience:</label>
+                            <select
+                                value={profile.experience || ''}
+                                onChange={(e) => setProfile({ ...profile, experience: e.target.value })}
+                                className="profile-dropdown"
+                            >
+                                <option value="">Select Experience Level</option>
+                                <option value="Beginner">Beginner</option>
+                                <option value="Intermediate">Intermediate</option>
+                                <option value="Expert">Expert</option>
+                            </select>
+                        </div>
+                        <div className="dropdown">
+                            <label>Gender:</label>
+                            <select
+                                value={profile.gender || ''}
+                                onChange={(e) => setProfile({ ...profile, gender: e.target.value })}
+                                className="profile-dropdown"
+                            >
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
                         </div>
                         <div className="button-group">
                             <button onClick={handleProfileUpdate} className="save-button">
@@ -109,6 +168,22 @@ const ProfilePage = () => {
                         <div className="profile-section">
                             <h3>Goal</h3>
                             <p>{user.goal || 'No goal set'}</p>
+                        </div>
+                        <div className="profile-section">
+                            <h3>Location</h3>
+                            <p>{user.location || 'No location yet'}</p>
+                        </div>
+                        <div className="profile-section">
+                            <h3>Age</h3>
+                            <p>{user.age || 'No age yet'}</p>
+                        </div>
+                        <div className="profile-section">
+                            <h3>Experience</h3>
+                            <p>{user.experience || 'No experience yet'}</p>
+                        </div>
+                        <div className="profile-section">
+                            <h3>Gender</h3>
+                            <p>{user.gender || 'No gender yet'}</p>
                         </div>
                         <button onClick={() => setEditing(true)} className="edit-button">
                             Edit Profile

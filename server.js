@@ -61,6 +61,22 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: null
   },
+  location: {
+    type: String,
+    default: null
+  },
+  age: {
+    type: Integer,
+    default: null
+  },
+  experience: {
+    type: String,
+    default: null
+  },
+  gender: {
+    type: String,
+    default: null
+  },
   exercises: {
     type: [exerciseSchema],
     default: []
@@ -97,6 +113,10 @@ app.post('/api/register', async (req, res) => {
       password: hashedPassword,
       bio: null,
       goal: null,
+      location: null,
+      age: null,
+      experience: null,
+      gender: null,   
     });
 
     const savedUser = await user.save();
@@ -110,6 +130,10 @@ app.post('/api/register', async (req, res) => {
         email: savedUser.email,
         bio: savedUser.bio,
         goal: savedUser.goal,
+        location: savedUser.location,
+        age: savedUser.age,
+        experience: savedUser.experience,
+        gender: savedUser.gender,
       },
     });
   } catch (error) {
@@ -142,6 +166,10 @@ app.post('/api/login', async (req, res) => {
         email: user.email,
         bio: user.bio,
         goal: user.goal,
+        location: user.location,
+        age: user.age,
+        experience: user.experience,
+        gender: user.gender,
       },
     });
   } catch (error) {
@@ -153,12 +181,12 @@ app.post('/api/login', async (req, res) => {
 // Update profile endpoint
 app.put('/api/users/:uuid/profile', async (req, res) => {
   try {
-    const { bio, goal } = req.body;
+    const { bio, goal, location, age, experience, gender } = req.body;
     const { uuid } = req.params;
 
     const user = await User.findOneAndUpdate(
       { uuid },
-      { $set: { bio, goal } },
+      { $set: { bio, goal, location } },
       { new: true, select: '-password' }
     );
 
@@ -174,6 +202,10 @@ app.put('/api/users/:uuid/profile', async (req, res) => {
         email: user.email,
         bio: user.bio,
         goal: user.goal,
+        location: user.location,
+        age: user.age,
+        experience: user.experience,
+        gender: user.gender,
       },
     });
   } catch (error) {

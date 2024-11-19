@@ -17,7 +17,7 @@ const Nav = () => {
             </div>
             <div className="navbar-center">
                 <a href="/home" className="active">Home</a>
-                <a href="/workoutPage">Workouts</a>
+                <a href="/workoutPage">Dashboard</a>
                 <a href="/gymbro">Gymbros</a>
                 <a href="/contact">Contact Us</a>
                 <a href="/profile">Profile</a>

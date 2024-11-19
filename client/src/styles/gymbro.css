@@ -6,7 +6,6 @@ html {
     padding: 0;
     min-height: 100vh;
     overflow-x: hidden;
-
 }
 
 .gymbroContainer {
@@ -22,20 +21,7 @@ html {
     position: relative;
 }
 
-/* Navbar */
-.navbar {
-    width: 100%;
-    background-color: #333;
-    color: #fff;
-    padding: 20px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
-    position: fixed;
-    top: 0;
-    z-index: 4;
-    /* Ensure navbar is above the sidebar */
-}
-
-/* Fixed Sidebar */
+/* Sidebar styles */
 .sidebar {
     width: 350px;
     background-color: #222;
@@ -44,9 +30,7 @@ html {
     box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.3);
     position: fixed;
     height: calc(100vh - 8vh);
-    /* Adjust for navbar height */
     top: 8vh;
-    /* Align with navbar height */
     left: 0;
     z-index: 3;
     text-align: center;
@@ -86,10 +70,8 @@ html {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    padding-left: 270px;
-    /* Offset for sidebar width */
-    padding-top: 45px;
-    /* Adjust for navbar height */
+    padding-left: 350px;
+    padding-top: 8vh;
 }
 
 /* Card Stack */
@@ -98,85 +80,194 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
+    background: rgba(20, 20, 20, 0.95);
+    /* Dark background with slight transparency */
+    backdrop-filter: blur(10px);
 }
 
 .card {
-    width: 1000px;
-    height: 600px;
-    background-color: #fff;
-    background-size: cover;
-    background-position: center;
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
-    border-radius: 15px;
-    display: flex;
-    overflow: hidden;
-    align-items: center;
-    justify-content: center;
+    width: 450px;
+    border-radius: 20px;
     position: absolute;
-    transition: transform 0.3s ease;
+    overflow: hidden;
+    padding: 2px;
+    background: linear-gradient(to bottom, #2196F3, #1976D2);
 }
 
-.cardImage {
-    width: 55%;
-    height: 100%;
-    background-color: #ccc;
-    background-position: center;
-    background-size: cover;
-    border-top-left-radius: 15px;
-    border-bottom-left-radius: 15px;
-}
-
-.cardInfo {
-    width: 60%;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    color: #CACACA;
-}
-
-.cardInfo h2 {
-    margin: 0;
-    font-size: 24px;
-}
-
-.cardInfo p {
-    font-size: 16px;
-    margin-top: 10px;
-}
-
-/* Stacked Card Styling */
 .card:nth-child(1) {
     transform: translateX(0);
     z-index: 3;
 }
 
 .card:nth-child(2) {
-    transform: translateX(-20px);
+    transform: translateX(-20px) scale(0.95);
     z-index: 2;
+    opacity: 0.8;
 }
 
 .card:nth-child(3) {
-    transform: translateX(-40px);
+    transform: translateX(-40px) scale(0.9);
     z-index: 1;
+    opacity: 0.6;
 }
 
-.card .explore-button {
-    padding: 0.75rem;
-    background: white;
-    border: none;
-    transition: all 0.2s ease;
+/* Card Content */
+.profile-section {
+    background: rgba(20, 20, 20, 0.95);
+    /* Dark background with slight transparency */
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    overflow: hidden;
+    padding: 20px;
+    margin: 2.5px;
 }
 
-.card .explore-button:hover::before {
-    display: none;
+
+.profile-image-container {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: rgba(33, 150, 243, 0.1);
 }
 
-.card .explore-button:hover {
-    transform: scale(1.1);
+.profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.floating-icon {
+    position: absolute;
+    font-size: 24px;
+    opacity: 0.2;
+    pointer-events: none;
+}
+
+.card-info {
+    margin-top: 16px;
+}
+
+.user-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.user-header h2 {
+    color: white;
+    margin: 0;
+    font-size: 24px;
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #4CAF50;
+    border-radius: 50%;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.stat-box {
+    background-color: rgba(33, 150, 243, 0.1);
+    padding: 12px;
+    border-radius: 8px;
+}
+
+.stat-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+    margin-bottom: 4px;
+}
+
+.stat-title svg {
+    color: #2196F3;
+}
+
+.stat-box p {
+    color: #90CAF9;
+    margin: 4px 0 0 0;
+}
+
+.location {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+    margin-bottom: 16px;
+}
+
+.location svg {
+    color: #2196F3;
+}
+
+.stats-bar {
+    height: 8px;
+    background-color: #424242;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 24px;
+}
+
+.stats-progress {
+    height: 100%;
+    width: 80%;
+    background-color: #4CAF50;
+    border-radius: 4px;
 }
 
 .button-div {
     display: flex;
+    gap: 16px;
+}
+
+.button-div button {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.reject-button {
+    background-color: rgba(244, 67, 54, 0.1);
+    color: #F44336;
+}
+
+.reject-button:hover {
+    background-color: rgba(244, 67, 54, 0.2);
+}
+
+.accept-button {
+    background-color: #2196F3;
+    color: white;
+}
+
+.accept-button:hover {
+    background-color: #1976D2;
+}
+
+.error-message {
+    color: #F44336;
+    padding: 16px;
+    text-align: center;
 }

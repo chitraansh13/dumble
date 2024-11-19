@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import Nav from '../components/Nav';
 import StatsCard from '../components/StatsCard';
 import FriendsCard from '../components/FriendsCard';
-import '../styles/dashboard.css';
+import '../styles/homePage.css';
 
 const HomePage = () => {
     const [user, setUser] = useState(null);
@@ -25,7 +25,10 @@ const HomePage = () => {
         <div className="app">
             <Nav />
             <div className="dashboard">
-                <h2 className='intro-text'>Hi, {user.name}!</h2>
+                <div className="intro-container">
+                    <h2 className='intro-text'>Welcome</h2>
+                    <h2 className='intro-name'>{user.name}!</h2>
+                </div>
                 <br />
                 <div className="stats-container">
                     <Link to="/diet" className="card-link">

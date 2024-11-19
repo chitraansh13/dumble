@@ -26,16 +26,20 @@ html {
         transform: translateX(100vw);
         opacity: 0;
     }
+
     100% {
-        transform: translateX(0); 
+        transform: translateX(0);
         opacity: 1;
     }
 }
 
 @keyframes moveLeftRight {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateX(0);
     }
+
     50% {
         transform: translateX(50px);
     }
@@ -69,6 +73,7 @@ html {
         transform: translateY(-100%);
         opacity: 0;
     }
+
     100% {
         transform: translateY(0);
         opacity: 1;
@@ -88,12 +93,12 @@ html {
     z-index: 3;
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(66, 66, 66, 0.5);
-    animation: slideDownFromTop 0.8s ease-out forwards; 
+    animation: slideDownFromTop 0.8s ease-out forwards;
 }
 
 .appLogo {
-    height: 40px;
-    pointer-events: none;
+    height: 2rem;
+    margin-left: 50px;
 }
 
 @keyframes hoverPop {
@@ -101,6 +106,7 @@ html {
         transform: scale(1);
         color: #61dafb;
     }
+
     100% {
         transform: scale(1.1);
         color: #ffffff;
@@ -118,14 +124,15 @@ html {
 }
 
 .appLink:hover {
-    animation: hoverPop 0.5s ease; 
+    animation: hoverPop 0.5s ease;
 }
 
 @keyframes slideInFromLeft {
     0% {
-        transform: translateX(-100vw); 
+        transform: translateX(-100vw);
         opacity: 0;
     }
+
     100% {
         transform: translateX(0);
         opacity: 1;

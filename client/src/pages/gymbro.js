@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { X, } from 'lucide-react';
+import { Activity, MapPin, Target } from 'lucide-react';
 import '../styles/gymbro.css';
 import Nav from '../components/Nav';
-import RightButton from '../components/RightButton';
 import LeftButton from '../components/LeftButton';
+import RightButton from '../components/RightButton';
 
 function Gymbro() {
     const [friends, setFriends] = useState([]);
@@ -15,9 +15,6 @@ function Gymbro() {
         const fetchGymbros = async () => {
             try {
                 const response = await fetch('http://localhost:3001/api/recommendations');
-                if (!response.ok) {
-                    throw new Error('Failed to fetch gymbros');
-                }
                 const data = await response.json();
                 setRecommendations(data);
             } catch (error) {
@@ -29,6 +26,7 @@ function Gymbro() {
         fetchGymbros();
     }, []);
 
+    
     // Handle rejecting a user (removing from recommendations)
     const handleReject = (uuid) => {
         setRecommendations(prev => prev.filter(user => user.uuid !== uuid));
@@ -41,7 +39,7 @@ function Gymbro() {
     };
 
     if (error) {
-        return <div className="error-message p-4 text-red-500">{error}</div>;
+        return <div className="error-message">{error}</div>;
     }
 
     return (
@@ -63,16 +61,67 @@ function Gymbro() {
                 <div className="cardStack">
                     {recommendations.map((user, index) => (
                         <div key={user.uuid} className="card">
-                            <div className="cardImage" style={{ backgroundImage: `url(${user.img || 'default-image.jpg'})` }}></div>
-                            <div className="cardInfo">
-                                <h2>{user.name}</h2>
-                                <p>{user.bio || 'No bio available'}</p>
-                                <p>Goal: {user.goal || 'No goal specified'}</p>
-                                <p>Location: {user.location || 'Location not provided'}</p>
 
-                                <div className="button-div">
-                                    <LeftButton onReject={handleReject} userId={user.uuid} />
-                                    <RightButton onAccept={handleAccept} user={user} />
+                            <div className="profile-section">
+                                <div className="profile-image-container">
+                                    <img
+                                        src={user.img || 'default-image.jpg'}
+                                        alt={user.name}
+                                        className="profile-image"
+                                    />
+                                    {/* Floating Icons */}
+                                    {[...Array(8)].map((_, i) => (
+                                        <span
+                                            key={i}
+                                            className="floating-icon"
+                                            style={{
+                                                top: `${Math.random() * 100}%`,
+                                                left: `${Math.random() * 100}%`,
+                                                transform: `rotate(${Math.random() * 360}deg)`
+                                            }}
+                                        >
+                                            🏋️
+                                        </span>
+                                    ))}
+                                </div>
+
+                                <div className="card-info">
+                                    <div className="user-header">
+                                        <h2>{user.name}, {user.age}</h2>
+                                        <div className="status">
+                                            <span className="status-dot"></span>
+                                            <span>{user.bio}</span>
+                                        </div>
+                                    </div>
+
+                                    <div className="stats-grid">
+                                        <div className="stat-box">
+                                            <div className="stat-title">
+                                                <Activity size={18} />
+                                                <span>Experience</span>
+                                            </div>
+                                            <p>{user.experience}</p>
+                                        </div>
+                                        <div className="stat-box">
+                                            <div className="stat-title">
+                                                <Target size={18} />
+                                                <span>Goal</span>
+                                            </div>
+                                            <p>{user.goal}</p>
+                                        </div>
+                                    </div>
+
+                                    <div className="location">
+                                        <MapPin size={18} />
+                                        <span>{user.location}</span>
+                                    </div>
+
+
+
+                                    <div className="button-div">
+                                        <LeftButton onReject={() => handleReject(user.uuid)} />
+                                        <RightButton onAccept={() => handleAccept(user)} />
+                                    </div>
                                 </div>
                             </div>
                         </div>

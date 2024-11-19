@@ -14,15 +14,12 @@ function Landing() {
                         src="/logo192.png"
                         alt="logo"
                         className="appLogo"
-                        width={50}
-                        height={50}
                     />
                 </Link>
                 <div>
                     <Link to="/login" className="appLink">Login</Link>
                     <Link to="/register" className="appLink">Register</Link>
                     <Link to="/gymbro" className="appLink">Gymbro</Link>
-                    <Link to="/dashboard" className="appLink">Dashboard</Link>
                 </div>
             </nav>
         </div>
