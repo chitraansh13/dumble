@@ -13,7 +13,7 @@ const Nav = () => {
     return (
         <nav className="navbar">
             <div className="navbar-left">
-                <img src="/logo512.png" alt="Fittrack" className="logo" />
+                <img src="/image.png" alt="Fittrack" className="logo" />
             </div>
             <div className="navbar-center">
                 <a href="/home" className="active">Home</a>

@@ -11,7 +11,7 @@ function Landing() {
             <nav className="landingNav">
                 <Link to="/">
                     <img
-                        src="/logo192.png"
+                        src="/image.png"
                         alt="logo"
                         className="appLogo"
                     />
