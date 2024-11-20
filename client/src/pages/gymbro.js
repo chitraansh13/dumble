@@ -26,7 +26,7 @@ function Gymbro() {
         fetchGymbros();
     }, []);
 
-    
+
     // Handle rejecting a user (removing from recommendations)
     const handleReject = (uuid) => {
         setRecommendations(prev => prev.filter(user => user.uuid !== uuid));
@@ -69,20 +69,6 @@ function Gymbro() {
                                         alt={user.name}
                                         className="profile-image"
                                     />
-                                    {/* Floating Icons */}
-                                    {[...Array(8)].map((_, i) => (
-                                        <span
-                                            key={i}
-                                            className="floating-icon"
-                                            style={{
-                                                top: `${Math.random() * 100}%`,
-                                                left: `${Math.random() * 100}%`,
-                                                transform: `rotate(${Math.random() * 360}deg)`
-                                            }}
-                                        >
-                                            🏋️
-                                        </span>
-                                    ))}
                                 </div>
 
                                 <div className="card-info">
