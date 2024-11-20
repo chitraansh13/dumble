@@ -66,7 +66,7 @@ const userSchema = new mongoose.Schema({
     default: null
   },
   age: {
-    type: Integer,
+    type: Number,
     default: null
   },
   experience: {
@@ -116,7 +116,7 @@ app.post('/api/register', async (req, res) => {
       location: null,
       age: null,
       experience: null,
-      gender: null,   
+      gender: null,
     });
 
     const savedUser = await user.save();
